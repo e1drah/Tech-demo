@@ -47,15 +47,16 @@ public class PIckUp : MonoBehaviour
                         hit.transform.gameObject.SetActive(false);
                         totalThrows++;
                     }
-                    else if (hit.transform.gameObject.tag == "Gun")
+                    if (hit.transform.gameObject.tag == "Gun")
                     {
                         hasGun = true;
                         hit.transform.gameObject.SetActive(false);
                     }
-                    else
+                    if (hit.transform.gameObject.tag == "PickUp")
                     {
                         PickupObject(hit.transform.gameObject);
                     }
+                    //if (hit.transform.gameObject.tag ==)
                 }
             }
             else
