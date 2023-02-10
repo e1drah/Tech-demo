@@ -9,6 +9,9 @@ TagManager:
   - Gun
   - CheckPoint
   - PickUp
+  - Pressable
+  - TelleportStart
+  - TelleportEnd
   layers:
   - Default
   - TransparentFX

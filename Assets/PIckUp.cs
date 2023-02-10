@@ -56,7 +56,10 @@ public class PIckUp : MonoBehaviour
                     {
                         PickupObject(hit.transform.gameObject);
                     }
-                    //if (hit.transform.gameObject.tag ==)
+                    if (hit.transform.gameObject.tag == "Pressable")
+                    {
+                        hit.transform.gameObject.GetComponent<buttonPress>().Pressed();
+                    }
                 }
             }
             else

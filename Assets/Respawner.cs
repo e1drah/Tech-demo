@@ -33,5 +33,10 @@ public class Respawner : MonoBehaviour
             //gameObject.transform.position = checkPoint.gameObject.transform.position;
             //FirstPersonController.enabled = true;
         }
+        if(other.gameObject.CompareTag("TelleportStart"))
+        {
+            gameObject.transform.position = other.gameObject.GetComponent<teleport>().telleportEnd.transform.position;
+            //GetComponent<PIckUp>().totalThrows = 5;
+        }
     }
 }
