@@ -10,30 +10,68 @@ public class moveTo : MonoBehaviour
     public Transform point2;
     public Transform point3;
     public Transform point4;
-    public Transform player;
+    public GameObject player;
 
-    private int STATE_PATROLLING = 1;
-    private int STATE_FOLLOWING = 2;
-    private int STATE_RETREET = 3;
+    private Vector3 playerLastPostion;
+    private enum STATE
+    {
+        PATROL,
+        FOLLOW,
+        SEARCH,
+        RETREAT
+    }
+    //private int STATE_PATROLLING = 1;
+    //private int STATE_FOLLOWING = 2;
+    //private int STATE_SEARCH = 3
+    //private int STATE_RETREET = 4;
 
     private int state;
-        private NavMeshAgent agent;
+    private NavMeshAgent agent;
 
     void Start()
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
         agent.destination = point1.position;
-        state = STATE_PATROLLING;
+        state = (int) STATE.PATROL;
     }
     private void Update()
     {
-        if (state == STATE_PATROLLING)
+        if ((player.transform.position.x - gameObject.transform.position.x <= 10) && (player.transform.position.y - gameObject.transform.position.y <= 10))
+        {
+            state = (int) STATE.FOLLOW;
+        }
+        if ((player.transform.position.x - gameObject.transform.position.x >= 10) && (player.transform.position.y - gameObject.transform.position.y >= 10))
+        {
+            state = (int) STATE.SEARCH;
+        }
+        if ((gameObject.transform.postion == playerLastPostion) && (state == (int) STATE.SEARCH))
+        {
+            state = (int) STATE.RETREAT;
+        }
+        if ((state == (int) STATE.RETREAT) && (gameObject.transform.position == point1.position))
+        {
+            state = (int) STATE.PATROL;
+        }
+        StateUpdate();
+    }
+    public void StateUpdate()
+    {
+        if (state == (int) STATE.PATROL)
         {
             Patrol();
         }
-        if (state == STATE_FOLLOWING)
+        if (state == (int) STATE.FOLLOW)
         {
-            agent.destination = player.position;
+            agent.destination = player.transform.position;
+            playerLastPostion = player.transform.position;
+        }
+        if (state == (int) STATE.SEARCH)
+        {
+            agent.destination = playerLastPostion;
+        }
+        if (state == (int) STATE.RETREAT)
+        {
+            agent.destination = point1.postion;
         }
     }
     public void Patrol()
@@ -60,12 +98,12 @@ public class moveTo : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        state = STATE_FOLLOWING;
-    }
-    public void OnTriggerExit(Collider other)
-    {
-        state = STATE_RETREET;
-    }
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    state = STATE_FOLLOWING;
+    //}
+    //public void OnTriggerExit(Collider other)
+    //{
+    //    state = STATE_RETREET;
+    //}
 }
