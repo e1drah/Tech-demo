@@ -44,7 +44,7 @@ public class moveTo : MonoBehaviour
         {
             state = (int) STATE.SEARCH;
         }
-        if ((gameObject.transform.postion == playerLastPostion) && (state == (int) STATE.SEARCH))
+        if ((gameObject.transform.position == playerLastPostion) && (state == (int) STATE.SEARCH))
         {
             state = (int) STATE.RETREAT;
         }
@@ -71,7 +71,7 @@ public class moveTo : MonoBehaviour
         }
         if (state == (int) STATE.RETREAT)
         {
-            agent.destination = point1.postion;
+            agent.destination = point1.position;
         }
     }
     public void Patrol()

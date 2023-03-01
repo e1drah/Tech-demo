@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -242,7 +242,7 @@ MonoBehaviour:
   point2: {fileID: 445024550}
   point3: {fileID: 650633073}
   point4: {fileID: 721738802}
-  player: {fileID: 673131990}
+  player: {fileID: 441344372}
 --- !u!195 &304111936
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -279,6 +279,11 @@ CapsuleCollider:
   m_Height: 5.2412424
   m_Direction: 1
   m_Center: {x: -0.23555136, y: 0, z: 2.5060953e-11}
+--- !u!1 &441344372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+  m_PrefabInstance: {fileID: 683104295}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &445024546
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +387,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25982
+  m_Name: pb_Mesh25742
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -831,11 +836,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &673131990 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
-  m_PrefabInstance: {fileID: 683104295}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &683104295
 PrefabInstance:
   m_ObjectHideFlags: 0
