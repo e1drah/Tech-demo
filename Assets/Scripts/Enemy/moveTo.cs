@@ -33,7 +33,7 @@ public class moveTo : MonoBehaviour
     //private int STATE_SEARCH = 3
     //private int STATE_RETREET = 4;
 
-    private int state;
+    private STATE state;
     private NavMeshAgent agent;
 
     void Start()
@@ -47,57 +47,47 @@ public class moveTo : MonoBehaviour
     {
         if (RangeChecker(detectionRange))
         {
-            state = (int)STATE.FOLLOW;
+            state = STATE.FOLLOW;
         }
-        if ( OutRangeChecker(outDetectionRange) && (state == (int)STATE.FOLLOW))
+        if ( OutRangeChecker(outDetectionRange) && (state == STATE.FOLLOW))
         {
-            state = (int)STATE.SEARCH;
+            state = STATE.SEARCH;
         }
-        if (((playerLastPostion.x == gameObject.transform.position.x) && (playerLastPostion.z == gameObject.transform.position.z)) && (state == (int)STATE.SEARCH))
+        if (((playerLastPostion.x == gameObject.transform.position.x) && (playerLastPostion.z == gameObject.transform.position.z)) && (state == STATE.SEARCH))
         {
-            state = (int)STATE.RETREAT;
+            state = STATE.RETREAT;
         }
-        if ((state == (int)STATE.RETREAT) && (gameObject.transform.position == point1.position))
+        if ((state == STATE.RETREAT) && (gameObject.transform.position == point1.position))
         {
-            state = (int)STATE.PATROL;
+            state = STATE.PATROL;
         }
         if (RangeChecker(attackRange))
         {
-            state = (int)STATE.ATTACK;
+            state = STATE.ATTACK;
         }
         StateUpdate();
     }
     public void StateUpdate()
     {
-        if (state == (int)STATE.PATROL)
+        if (state == STATE.PATROL)
         {
             Patrol();
         }
-        if (state == (int)STATE.FOLLOW)
+        if (state == STATE.FOLLOW)
         {
-            agent.destination = player.transform.position;
-            playerLastPostion = player.transform.position;
-            eye.GetComponent<Renderer>().material.color = Color.red;
-            gameObject.GetComponentInChildren<Light>().color = Color.red;
+            Follow();
         }
-        if (state == (int)STATE.SEARCH)
+        if (state == STATE.SEARCH)
         {
-            agent.destination = playerLastPostion;
-            eye.GetComponent<Renderer>().material.color = Color.yellow;
-            gameObject.GetComponentInChildren<Light>().color = Color.yellow;
+            Search();
         }
-        if (state == (int)STATE.RETREAT)
+        if (state == STATE.RETREAT)
         {
-            agent.destination = nextPoint;
-            eye.GetComponent<Renderer>().material.color = Color.white;
-            gameObject.GetComponentInChildren<Light>().color = Color.white;
-            state = (int)STATE.PATROL;
+            Retreat();
         }
-        if (state == (int)STATE.ATTACK)
+        if (state == STATE.ATTACK)
         {
-            eye.GetComponent<Renderer>().material.color = Color.magenta;
-            agent.destination = gameObject.transform.position;
-            gameObject.GetComponentInChildren<Light>().color = Color.magenta;
+            Attack();
         }
     }
     void Patrol()
@@ -127,7 +117,38 @@ public class moveTo : MonoBehaviour
                 nextPoint = point1.position;
             }
         }
+    void Follow()
+    {
+        agent.destination = player.transform.position;
+        playerLastPostion = player.transform.position;
+        eye.GetComponent<Renderer>().material.color = Color.red;
+        gameObject.GetComponentInChildren<Light>().color = Color.red;
 
+        if (RangeChecker(detectionRange))
+        {
+            state = STATE.FOLLOW;
+        }
+    }
+    void Search()
+    {
+        agent.destination = playerLastPostion;
+        eye.GetComponent<Renderer>().material.color = Color.yellow;
+        gameObject.GetComponentInChildren<Light>().color = Color.yellow;
+    }
+}
+    void Retreat()
+    {
+        agent.destination = playerLastPostion;
+        eye.GetComponent<Renderer>().material.color = Color.yellow;
+        gameObject.GetComponentInChildren<Light>().color = Color.yellow;
+    }
+
+    void Attack()
+    {
+        eye.GetComponent<Renderer>().material.color = Color.magenta;
+        agent.destination = gameObject.transform.position;
+        gameObject.GetComponentInChildren<Light>().color = Color.magenta;
+    }
     public bool RangeChecker(float range)
     {
         if((player.transform.position.x - gameObject.transform.position.x <= range) && (player.transform.position.z - gameObject.transform.position.z <= range) && ((player.transform.position.x - gameObject.transform.position.x >= -range) && (player.transform.position.z - gameObject.transform.position.z >= -detectionRange)))
